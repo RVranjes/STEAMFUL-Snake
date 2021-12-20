@@ -7,10 +7,10 @@ const box = 32;
 // load images
 
 const ground = new Image();
-ground.src = "../media/ground2.png";
+ground.src = "./media/ground2.png";
 
 const foodImg = new Image();
-foodImg.src = "../media/food3.png";
+foodImg.src = "./media/food3.png";
 
 //create the snake
 
