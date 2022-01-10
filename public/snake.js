@@ -1,3 +1,9 @@
+window.addEventListener("keydown", function(e) {
+    if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+        e.preventDefault();
+    }
+}, false);
+
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
 
@@ -7,10 +13,10 @@ const box = 32;
 // load images
 
 const ground = new Image();
-ground.src = "./media/ground2.png";
+ground.src = "./media/ground3.png";
 
 const foodImg = new Image();
-foodImg.src = "./media/food3.png";
+foodImg.src = "./media/food5.png";
 
 //create the snake
 
@@ -65,10 +71,10 @@ function draw(){
   ctx.drawImage(ground,0,0);
 
   for ( let i = 0; i < snake.length ; i++){
-    ctx.fillStyle = ( i == 0 )? "green" : "white";
+    ctx.fillStyle = ( i == 0 )? "blue" : "lightblue";
     ctx.fillRect(snake[i].x,snake[i].y,box,box);
 
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "black";
     ctx.strokeRect(snake[i].x,snake[i].y,box,box);
   }
 
@@ -106,7 +112,7 @@ function draw(){
 
   // game over
   if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
-    clearInterval(game);
+    finishGame();
   }
 
   snake.unshift(newHead);
@@ -116,6 +122,26 @@ function draw(){
   ctx.fillText(score,2*box,1.6*box);
 }
 
-// call draw function every 100 ms
+function finishGame(){
+  clearInterval(game);
+  setTimeout(() => {
+    alert("Game over")
+    startGame();
+  }, 120)
 
-let game = setInterval(draw,150);
+}
+
+function startGame(){
+ game = setInterval(draw,120);
+ d = null;
+ snake = [{
+  x : 9 * box,
+  y : 10 * box
+}];
+ score = 0;
+}
+
+// call draw function every 120 ms
+
+let game;
+startGame();
